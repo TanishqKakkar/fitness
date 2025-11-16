@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Planner - FitTrack Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-icon">⚡</span> 
+                <span class="logo-text">FitTrack</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-btn">Overview</a></li>
+                <li><a href="index.html" class="nav-btn">Workouts</a></li>
+                <li><a href="meals.html" class="nav-btn active">Nutrition</a></li>
+                <li><a href="index.html" class="nav-btn">Analytics</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+        <div class="page active">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Nutrition Plan</h1>
+                    <p class="page-subtitle">Plan and monitor your daily diet with premium meals</p>
+                </div>
+                <div class="total-calories">
+                    <span class="total-label">Total Calories</span>
+                    <span class="total-value" id="totalCalories">0</span>
+                </div>
+            </div>
+
+            <!-- Meal Cards Grid -->
+            <div class="meals-showcase">
+                <div class="meal-showcase-card">
+                    <div class="meal-image-container">
+                        <img src="/public/breakfast-meal.jpg" alt="Healthy Breakfast" class="meal-image">
+                        <div class="meal-badge">🌅 Breakfast</div>
+                    </div>
+                    <div class="meal-content">
+                        <h3>Start Your Day Right</h3>
+                        <p class="meal-description">Energize with nutritious breakfast options</p>
+                        <div class="meal-stats">
+                            <span class="stat">200-400 kcal</span>
+                            <span class="stat">High Protein</span>
+                        </div>
+                        <button class="btn-primary" onclick="scrollToSection('breakfast')">Manage Breakfast</button>
+                    </div>
+                </div>
+
+                <div class="meal-showcase-card">
+                    <div class="meal-image-container">
+                        <img src="/public/lunch-meal.jpg" alt="Fresh Lunch" class="meal-image">
+                        <div class="meal-badge">🌞 Lunch</div>
+                    </div>
+                    <div class="meal-content">
+                        <h3>Peak Performance</h3>
+                        <p class="meal-description">Power through the day with balanced nutrition</p>
+                        <div class="meal-stats">
+                            <span class="stat">500-700 kcal</span>
+                            <span class="stat">Balanced Macro</span>
+                        </div>
+                        <button class="btn-primary" onclick="scrollToSection('lunch')">Manage Lunch</button>
+                    </div>
+                </div>
+
+                <div class="meal-showcase-card">
+                    <div class="meal-image-container">
+                        <img src="/public/dinner-meal.jpg" alt="Nutritious Dinner" class="meal-image">
+                        <div class="meal-badge">🌙 Dinner</div>
+                    </div>
+                    <div class="meal-content">
+                        <h3>Recovery & Rest</h3>
+                        <p class="meal-description">Refuel your body after an active day</p>
+                        <div class="meal-stats">
+                            <span class="stat">400-600 kcal</span>
+                            <span class="stat">Light & Nutritious</span>
+                        </div>
+                        <button class="btn-primary" onclick="scrollToSection('dinner')">Manage Dinner</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Meals Management Section -->
+            <div class="meals-management">
+                <h2 class="section-title">Manage Your Meals</h2>
+
+                <!-- Breakfast Section -->
+                <div id="breakfast" class="meal-section" data-meal-type="breakfast">
+                    <div class="meal-header">
+                        <h2>🌅 Breakfast</h2>
+                        <span class="meal-calories" id="breakfastCals">0 kcal</span>
+                    </div>
+                    <div id="breakfastList" class="meal-list"></div>
+                    <button class="btn-add" onclick="openMealForm('breakfast')">+ Add Breakfast Item</button>
+                </div>
+
+                <!-- Lunch Section -->
+                <div id="lunch" class="meal-section" data-meal-type="lunch">
+                    <div class="meal-header">
+                        <h2>🌞 Lunch</h2>
+                        <span class="meal-calories" id="lunchCals">0 kcal</span>
+                    </div>
+                    <div id="lunchList" class="meal-list"></div>
+                    <button class="btn-add" onclick="openMealForm('lunch')">+ Add Lunch Item</button>
+                </div>
+
+                <!-- Dinner Section -->
+                <div id="dinner" class="meal-section" data-meal-type="dinner">
+                    <div class="meal-header">
+                        <h2>🌙 Dinner</h2>
+                        <span class="meal-calories" id="dinnerCals">0 kcal</span>
+                    </div>
+                    <div id="dinnerList" class="meal-list"></div>
+                    <button class="btn-add" onclick="openMealForm('dinner')">+ Add Dinner Item</button>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="meal-actions">
+                <button class="btn-primary" onclick="downloadMealPlan()">📥 Download Meal Plan</button>
+                <button class="btn-danger" onclick="resetMeals()">🔄 Reset Meals</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Meal Modal -->
+    <div id="mealModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeMealForm()">&times;</span>
+            <h2>Add New Meal</h2>
+            <form id="mealForm" class="meal-form">
+                <input type="hidden" id="mealType">
+                <div class="form-group">
+                    <label>Meal Name</label>
+                    <input type="text" id="mealName" placeholder="e.g., Grilled Chicken with Rice" required>
+                </div>
+                <div class="form-group">
+                    <label>Calories (kcal)</label>
+                    <input type="number" id="mealCalories" min="1" placeholder="300" required>
+                </div>
+                <div class="form-group">
+                    <label>Meal Category</label>
+                    <select id="mealCategory" required>
+                        <option value="">Select category...</option>
+                        <option value="Protein">Protein Rich</option>
+                        <option value="Carbs">Carbs</option>
+                        <option value="Vegetables">Vegetables</option>
+                        <option value="Fruits">Fruits</option>
+                        <option value="Dairy">Dairy</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary">Add Meal</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content success-content">
+            <div class="success-icon">✓</div>
+            <h2 id="successMessage">Success!</h2>
+            <button onclick="closeSuccessModal()" class="btn-primary">OK</button>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="meals.js"></script>
+</body>
+</html>

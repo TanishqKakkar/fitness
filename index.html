@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitTrack Pro - Elite Fitness Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-icon">⚡</span> 
+                <span class="logo-text">FitTrack</span>
+            </div>
+            <ul class="nav-menu">
+                <li><button class="nav-btn active" data-page="overview">Overview</button></li>
+                <li><button class="nav-btn" data-page="workouts">Workouts</button></li>
+                <li><button class="nav-btn" data-page="nutrition">Nutrition</button></li>
+                <li><button class="nav-btn" data-page="analytics">Analytics</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Page 1: Daily Wellness Overview -->
+        <div id="overview" class="page active">
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Daily Performance</h1>
+                    <p class="page-subtitle">Track your fitness excellence</p>
+                </div>
+                <div class="live-clock" id="liveClock">00:00</div>
+            </div>
+
+            <!-- Hero Section with Image -->
+            <div class="hero-section">
+                <img src="/public/5cb23a9a13c51f3a71992c0d2e034706.jpg" alt="Fitness Hero" class="hero-image">
+                <div class="hero-overlay">
+                    <h2>Push Your Limits</h2>
+                    <p>Every step counts towards your goals</p>
+                </div>
+            </div>
+
+            <div class="metrics-grid">
+                <!-- Steps Card -->
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <h3>Steps</h3>
+                        <span class="metric-icon">👟</span>
+                    </div>
+                    <div class="metric-body">
+                        <div class="metric-number" id="stepsValue">0</div>
+                        <p class="metric-label">of 10,000</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="stepsBar"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calories Card -->
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <h3>Calories</h3>
+                        <span class="metric-icon">🔥</span>
+                    </div>
+                    <div class="metric-body">
+                        <div class="metric-number" id="caloriesValue">0</div>
+                        <p class="metric-label">kcal burned</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="caloriesBar"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Water Card -->
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <h3>Water</h3>
+                        <span class="metric-icon">💧</span>
+                    </div>
+                    <div class="metric-body">
+                        <div class="metric-number" id="waterValue">0</div>
+                        <p class="metric-label">of 8 glasses</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="waterBar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 2: Workout Log -->
+        <div id="workouts" class="page">
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Workout Log</h1>
+                    <p class="page-subtitle">Track and manage your training</p>
+                </div>
+            </div>
+
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="morning">Morning</button>
+                <button class="filter-btn" data-filter="afternoon">Afternoon</button>
+                <button class="filter-btn" data-filter="evening">Evening</button>
+            </div>
+
+            <div id="workoutsList" class="workouts-list"></div>
+
+            <div class="form-section">
+                <h2>Log New Workout</h2>
+                <form id="workoutForm" class="workout-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Workout Type</label>
+                            <select id="workoutType" required>
+                                <option value="">Select workout...</option>
+                                <option value="Running">Running</option>
+                                <option value="Cycling">Cycling</option>
+                                <option value="Swimming">Swimming</option>
+                                <option value="Weight Training">Weight Training</option>
+                                <option value="Yoga">Yoga</option>
+                                <option value="HIIT">HIIT</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Duration (min)</label>
+                            <input type="number" id="workoutDuration" min="1" placeholder="30" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Intensity</label>
+                            <select id="workoutIntensity" required>
+                                <option value="">Select intensity...</option>
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                                <option value="Maximum">Maximum</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Calories Burned</label>
+                            <input type="number" id="workoutCalories" min="1" placeholder="150" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary">Log Workout</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Page 3: Nutrition Planner -->
+        <div id="nutrition" class="page">
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Nutrition Plan</h1>
+                    <p class="page-subtitle">Plan and monitor your diet</p>
+                </div>
+                <div class="total-calories">
+                    <span class="total-label">Total Calories</span>
+                    <span class="total-value" id="totalCalories">0</span>
+                </div>
+            </div>
+
+            <div class="meals-grid">
+                <div class="meal-section">
+                    <div class="meal-header">
+                        <h2>🌅 Breakfast</h2>
+                        <span class="meal-calories" id="breakfastCals">0 kcal</span>
+                    </div>
+                    <div id="breakfastList" class="meal-list"></div>
+                    <button class="btn-add" onclick="addMealForm('breakfast')">+ Add Meal</button>
+                </div>
+
+                <div class="meal-section">
+                    <div class="meal-header">
+                        <h2>🌞 Lunch</h2>
+                        <span class="meal-calories" id="lunchCals">0 kcal</span>
+                    </div>
+                    <div id="lunchList" class="meal-list"></div>
+                    <button class="btn-add" onclick="addMealForm('lunch')">+ Add Meal</button>
+                </div>
+
+                <div class="meal-section">
+                    <div class="meal-header">
+                        <h2>🌙 Dinner</h2>
+                        <span class="meal-calories" id="dinnerCals">0 kcal</span>
+                    </div>
+                    <div id="dinnerList" class="meal-list"></div>
+                    <button class="btn-add" onclick="addMealForm('dinner')">+ Add Meal</button>
+                </div>
+            </div>
+
+            <div id="mealModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeMealForm()">&times;</span>
+                    <h2>Add Meal</h2>
+                    <form id="mealForm" class="meal-form">
+                        <input type="hidden" id="mealType">
+                        <div class="form-group">
+                            <label>Meal Name</label>
+                            <input type="text" id="mealName" placeholder="e.g., Grilled Chicken Salad" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Calories</label>
+                            <input type="number" id="mealCalories" min="1" placeholder="300" required>
+                        </div>
+                        <button type="submit" class="btn-primary">Add Meal</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 4: Analytics -->
+        <div id="analytics" class="page">
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Performance Analytics</h1>
+                    <p class="page-subtitle">Your weekly insights</p>
+                </div>
+            </div>
+
+            <div class="analytics-grid">
+                <div class="insight-card">
+                    <h2>Weekly Workouts</h2>
+                    <div id="workoutsChart" class="chart-container"></div>
+                </div>
+
+                <div class="insight-card">
+                    <h2>Calorie Burn Trend</h2>
+                    <div id="caloriesChart" class="chart-container"></div>
+                </div>
+
+                <div class="insight-card stats-card">
+                    <h2>Weekly Stats</h2>
+                    <div class="stats-content">
+                        <div class="stat-item">
+                            <span class="stat-label">Total Workouts</span>
+                            <span class="stat-value" id="totalWorkouts">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Total Calories</span>
+                            <span class="stat-value" id="totalBurned">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Avg Duration</span>
+                            <span class="stat-value" id="avgDuration">0 min</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button id="downloadBtn" class="btn-primary">Download Report</button>
+                <button id="resetBtn" class="btn-danger">Reset Data</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content success-content">
+            <div class="success-icon">✓</div>
+            <h2 id="successMessage">Success!</h2>
+            <button onclick="closeSuccessModal()" class="btn-primary">OK</button>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
